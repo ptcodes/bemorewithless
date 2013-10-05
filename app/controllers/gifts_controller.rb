@@ -23,6 +23,11 @@ class GiftsController < InheritedResources::Base
     else
       @gifts = Gift.includes(:user).page(params[:page])
     end
+
+    respond_to do |format|
+      format.html
+      format.json { render :json => @gifts }
+    end
   end
 
   def give
