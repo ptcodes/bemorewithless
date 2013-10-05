@@ -64,6 +64,7 @@ class Gift < ActiveRecord::Base
   def to_param
     "#{id}-#{title.parameterize}"
   end
+  alias_method :permalink, :to_param
 
   def to_s
     title
