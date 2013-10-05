@@ -6,7 +6,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.html 
-      format.json { render json: @user.as_json(include: :photos) }
+      format.json { render json: @user.as_json(include: :photo) }
     end
   end
 
