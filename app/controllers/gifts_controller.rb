@@ -47,6 +47,11 @@ class GiftsController < InheritedResources::Base
     if current_user
       @comment = current_user.comments.new(gift: @gift)
     end
+    
+    respond_to do |format|
+      format.html 
+      format.json { render json: @gift }
+    end
   end
 
   def feed
