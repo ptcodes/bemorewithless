@@ -1,6 +1,14 @@
-class UsersController < InheritedResources::Base
-  actions :show
+class UsersController < ApplicationController
   before_filter :find_user, only: %w(show comments gifts wishes)
+
+  def show
+    @user = User.find(params[:id])
+
+    respond_to do |format|
+      format.html 
+      format.json { render json: @user }
+    end
+  end
 
   def comments
     @comments = @user.comments.includes([:user, :gift]).page(params[:page])
