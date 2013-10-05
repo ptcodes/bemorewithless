@@ -1,0 +1,14 @@
+- if current_user
+  - type_id = type_id.nil?? @comment.type_id : type_id
+  .row
+    = div_for @comment, class: 'span7 well' do
+      = simple_form_for @comment, remote: true do |f|
+        = f.error_notification
+        = f.input :gift_id, as: :hidden
+        = f.input :type_id, as: :hidden, input_html: {value: type_id}
+        = f.input :content, as: :text, label: false, input_html: {placeholder: t(:type_in_your_comment), rows: 5}
+        = f.button :submit, (@comment.new_record? ? t(:post_comment) : t(:update_comment)), class: 'btn-info btn-orange'
+- else
+  .row
+    .span8
+      = t(:login_to_comment, link: link_to(t(:login), new_user_session_path)).html_safe

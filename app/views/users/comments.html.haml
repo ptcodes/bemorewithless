@@ -1,0 +1,13 @@
+- meta title: t(:comments)
+
+.wrap
+  %h1= t(:comments)
+  - if @comments.any?
+    - @comments.each do |comment|
+      = render partial: 'comments/comment', locals: {comment: comment, show_gift_name: true}
+  - else
+    = t(:has_no_comments, name: @user.username).html_safe
+
+  .row
+    .span8
+      = paginate @comments

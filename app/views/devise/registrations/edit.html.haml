@@ -1,0 +1,29 @@
+- meta title: t(:profile)
+
+.wrap{class: I18n.locale}
+  %h1= t(:profile)
+  = simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: {class: 'form-horizontal', method: :put, multipart: true}) do |f|
+    = f.error_notification
+    .inputs
+      = f.input :email, required: true, autofocus: true
+      = f.input :username, required: true
+      = f.simple_fields_for :address do |address_form|
+        .control-group.string.optional
+          %label.string.optional.control-label{for: 'user_address_attributes_country_code'}= t(:country)
+          .controls
+            = address_form.country_select :country_code, priority: %w(CL), label: t(:country)
+        .control-group.string.optional
+          = render partial: 'addresses/subregion_options', locals: {parent_region: address_form.object.country_code, model: 'user'}
+          = address_form.input :city
+      = f.input :first_name
+      = f.input :last_name
+      - if current_user.avatar.url.present?
+        = image_tag(current_user.avatar.url(:medium), class: 'avatar-profile')
+      = f.input :avatar, as: :file
+      = f.input :avatar_cache, as: :hidden
+      = f.input :profile, cols: 20
+      = f.input :language, collection: User::LANGUAGES, label: t(:language_for_emails), prompt: false
+      = f.input :password, :autocomplete => "off", hint: t(:leave_it_blank), required: false
+      = f.input :password_confirmation, :required => false
+    .form-actions
+      = f.button :submit, t(:update), :class => 'btn-orange'

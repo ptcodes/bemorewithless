@@ -1,0 +1,10 @@
+%p
+  = "Hey #{@user}!"
+%p
+  = link_to @comment.user.username, user_url(@comment.user, locale: @user.language)
+  has left a comment in the appreciation section of the gift
+  = link_to @comment.gift.title, gift_url(@comment.gift, anchor: 'thanks', locale: @user.language)
+%p
+  Cheers!
+%p
+  Regalomía

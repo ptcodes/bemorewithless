@@ -1,0 +1,24 @@
+= div_for(comment, class: 'row') do
+  .span8.comment
+    .row
+      .span1
+        = link_to image_tag(comment.user.avatar_url(:medium).to_s, class: 'thumbnail'), user_path(comment.user)
+      .span6.content
+        %p
+          = link_to comment.user, user_path(comment.user)
+          %span.time
+            = t(:said)
+            = time_ago_in_words(comment.created_at)
+            = t(:ago)
+          - if defined?(show_gift_name) && show_gift_name == true
+            %span
+              = t(:to)
+              = link_to comment.gift.title, gift_path(comment.gift)
+        %p= comment.content
+        - if current_user == comment.user
+          %span
+            = link_to edit_comment_path(comment), remote: true do
+              - content_tag(:i, '', class: 'icon-edit')
+          %span
+            = link_to comment, method: :delete, remote: true, data: {confirm: t(:are_you_sure)} do
+              - content_tag(:i, '', class: 'icon-trash')

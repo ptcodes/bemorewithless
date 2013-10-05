@@ -1,0 +1,110 @@
+en:
+  title: 'Be More With Less'
+  follow_us: 'Follow Us'
+  sign_up: 'Sign up'
+  sign_in: 'Sign in'
+  account: 'My Account'
+  logout: 'Log Out'
+  forgot_your_password: 'Forgot your password?'
+  sign_in_with_facebook: 'Sign in with Facebook'
+  home: 'Home'
+  give_a_gift: 'Give a Gift'
+  category: 'Category'
+  categories: 'Categories'
+  profile: 'Profile'
+  wishers: 'Wishers'
+  wishes: 'Wishes'
+  address: 'Address'
+  comments: 'Comments'
+  post_comment: 'Post Comment'
+  update_comment: 'Update Comment'
+  type_in_your_comment: 'Type in your comment'
+  gift: 'Gift'
+  gifts: 'Gifts'
+  new_gift: 'New Gift'
+  edit_gift: 'Edit Gift'
+  on_the_site_since: 'Member since'
+  tags: 'Tags'
+  cancel: 'Cancel'
+  how_it_works: 'How it works?'
+  how_to_give_a_gift: 'How to give a gift?'
+  how_to_receive_a_gift: 'How to receive a gift?'
+  why_meet: 'Why meet?'
+  contact: 'Contact'
+  has_commented_on_the_gift: 'has commented on the gift' # not in use
+  promised_you_the_gift: 'promised you the gift' # not in use
+  wants_your_gift: 'wants your gift' # not in use
+  here_you_can_discuss: 'Here you can discuss with %{name} how to get the gift:' # not in use
+  comment_deleted: 'Comment has been deleted'
+  are_you_sure: 'Are you sure?'
+  said: 'wrote'
+  ago: 'ago'
+  thanks: 'Thanks'
+  meeting: 'Meeting'
+  add_photo: 'Add photo'
+  remove_this_photo: 'Remove this photo'
+  select_category: 'Select a category'
+  leave_it_blank: "leave it blank if you don't want to change it"
+  update: 'Update'
+  country: 'Country'
+  nobody_wished_this_gift_yet: 'Nobody wished this gift yet'
+  to: 'to'
+  his: 'His'
+  hello: 'Hello'
+  here_arrow: 'here'
+  login: 'login'
+  login_to_comment: 'First %{link} to post a comment.'
+  wish_the_gift: 'I want this gift'
+  unwish_the_gift: "I don't want it"
+  create_gift: 'Create Gift'
+  given: 'Given'
+  promised: 'Promised'
+  language_for_emails: 'Language for emails'
+  has_no_comments: "%{name} hasn't left any comments yet."
+  has_no_wishes: "<strong>%{name}</strong> hasn't wished anything yet."
+  has_no_gifts: "<strong>%{name}</strong> hasn't published any gifts yet"
+  state: 'State'
+  please_select_country: 'Please select a country above'
+  when_you_change_gift_status: "When you change gift's status to \"given\", nobody is able to wish your
+gift any longer"
+  the_owner_has_been_notified: 'The owner of the gift has been notified about your wish'
+  the_owner_will_be_notified: 'When you click on the button the owner of the gift will be notified'
+  change_status: 'Change status'
+  delivery: 'Delivery methods'
+  email:
+    subject:
+      welcome: 'Welcome to Be More With Less'
+      new_wish: 'New wish for your gift'
+      new_promise: 'Gift was promised to you'
+      new_comment: 'New comment on a gift'
+      new_meeting_comment: 'New comment in the meeting section on a gift'
+      new_thank_comment: 'New comment in the appreciation section on a gift'
+      new_comment_from_gift_owner: 'New comment on the gift you want' # not in use
+      gift_given: 'Gift was given to you!'
+  activerecord:
+    attributes:
+      user:
+        username: 'Username'
+        first_name: 'First name'
+        last_name: 'Last name'
+        email: 'Email'
+        password: 'Password'
+        password_confirmation: 'Password confirmation'
+        country_code: 'Country'
+        state_code: 'State'
+        city: 'City'
+        profile: 'Profile'
+        remember_me: 'Remember Me'
+      gift:
+        title: 'Title'
+        description: 'Description'
+        category_id: 'Category'
+        tag_list: 'Tags'
+        deliveries: 'Delivery methods'
+      address:
+        city: 'City'
+      photo:
+        image: 'Image'
+  time:
+    formats:
+      date: "%d %B, %H:%M"

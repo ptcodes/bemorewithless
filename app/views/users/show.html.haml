@@ -1,0 +1,28 @@
+- meta title: @user.username
+
+.wrap
+  .page-header
+    %h1
+      = @user.username
+      - if @user.gifts.any?
+        %span.badge.badge-success
+          = @user.gifts.count
+    %h4= @user.name
+    %span.registration
+      = t(:on_the_site_since)
+      = l @user.created_at, format: :date
+
+  .row
+    .span2
+      = image_tag(@user.avatar_url(:normal).to_s)
+    .span5
+      = t(:his)
+      = link_to t(:gifts), gifts_user_path(@user), class: 'btn'
+      = link_to t(:wishes), wishes_user_path(@user), class: 'btn'
+      = link_to t(:comments), comments_user_path(@user), class: 'btn'
+
+  %hr
+
+  .row
+    .span8
+      = @user.profile.try(:html_safe)

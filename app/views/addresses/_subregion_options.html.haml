@@ -1,0 +1,14 @@
+.state_code_wrapper
+  - parent_region ||= params[:parent_region]
+  - unless parent_region.nil?
+    - country = Carmen::Country.coded(parent_region)
+    - if country.nil?
+      %em= t(:please_select_country)
+    - elsif country.subregions?
+      %label.string.optional.control-label{for: "#{@model}_address_attributes_state_code"}= t(:state)
+      .controls
+        = subregion_select("#{@model}[address_attributes]", :state_code, parent_region)
+    - else
+      %label.string.optional.control-label{for: "#{@model}_address_attributes_state_code"}= t(:state)
+      .controls
+        = text_field("#{@model}[address_attributes]", :state_code)

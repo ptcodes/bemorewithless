@@ -1,0 +1,39 @@
+- if @gift && current_user == @gift.user && (@gift.promised? || @gift.given?)
+  .wrap
+    = simple_form_for @gift, url: give_gift_path, remote: true do |f|
+      = f.error_notification
+      = f.input :status, as: :radio_buttons, label: "#{t(:given)}?", checked: @gift.given?
+      .form-actions
+        = f.button :submit, t(:change_status), class: 'btn btn-orange'
+    .note
+      = t(:when_you_change_gift_status)
+
+- if current_user && @gift && current_user != @gift.user && @gift.can_be_wished?
+  .wrap.sidebar-nav
+    #wish
+      = render 'wishes/wish'
+- elsif @gift && @gift.can_be_wished? && !current_user
+  .wrap.sidebar-nav
+    %a.btn.btn-orange.btn-large{href: new_user_session_path}
+      %i.icon-white.icon-heart
+      = t(:wish_the_gift)
+
+- if display_categories?
+  .wrap.sidebar-nav
+    %h3= t(:categories)
+    %ul.nav.nav-list
+      - Category.includes(:translations).order(:name).each do |category|
+        %li= link_to "#{category.name} (#{category.gifts_count})", category_path(category)
+
+- if display_thanks?
+  .wrap.sidebar-nav.thanks
+    %h3= t(:thanks)
+    %ul.nav.nav-list
+      - Comment.thanks.each do |thank|
+        %li
+          %i= truncate(thank.content, length: 50)
+          %small
+            &dash;
+            = link_to thank.user, thank.user
+            = t(:to)
+            = link_to thank.gift, gift_path(thank.gift, anchor: 'thanks')

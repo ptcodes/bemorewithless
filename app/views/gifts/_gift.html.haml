@@ -1,0 +1,38 @@
+.row
+  .span2
+    - if gift.preview
+      = link_to image_tag(gift.preview.image_url(:medium).to_s, class: 'thumbnail'), gift_path(gift)
+  .span5
+    %h4
+      - if gift.given?
+        %span.label.label-important= t(:given)
+      - if gift.promised?
+        %span.label.label-success= t(:promised)
+      %strong
+        = link_to gift.title, gift_path(gift)
+    %p
+      = gift.description.html_safe
+    %p
+      %i.icon-book
+      = "#{t(:category)}:"
+      = link_to gift.category.try(:name), category_path(gift.category)
+    - if gift.full_address.present?
+      %p
+        %i.icon-globe
+        = "#{t(:address)}: #{gift.full_address}"
+    %p
+      %i.icon-calendar
+      = l gift.created_at, format: :date
+      &nbsp;
+      %i.icon-comment
+      = link_to "#{gift.gift_comments.count} #{t(:comments)}", gift_path(gift, anchor: 'comments')
+      &nbsp;
+      %i.icon-heart
+      = link_to "#{gift.wishers.count} #{t(:wishers)}", gift_path(gift, anchor: 'wishers')
+      - if gift.thank_comments.count > 0
+        &nbsp;
+        %i.icon-thumbs-up
+        = link_to "#{gift.thank_comments.count} #{t(:thanks)}", gift_path(gift, anchor: 'thanks')
+  .span1
+    = render partial: 'users/user', locals: {user: gift.user}
+%hr

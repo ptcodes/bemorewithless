@@ -1,0 +1,10 @@
+%p
+  = "Hey #{@user}!"
+%p
+  = "The owner of the gift you wanted #{link_to @gift, gift_url(@gift, locale: @user.language)} has given it to somebody.".html_safe
+%p
+  = "If that was you please say thank you #{link_to 'here', gift_url(@gift, anchor: 'thanks', locale: @user.language)}. If it was not you we wish you luck with a new item!".html_safe
+%p
+  Cheers!
+%p
+  Regalomía

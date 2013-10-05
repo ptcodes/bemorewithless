@@ -1,0 +1,109 @@
+es:
+  title: 'Be More With Less'
+  follow_us: 'Conectar'
+  sign_up: 'Registrarse'
+  sign_in: 'Acceder'
+  account: 'Mi Cuenta'
+  logout: 'Cerrar la Sesión'
+  forgot_your_password: '¿Olvidó su contraseña?'
+  sign_in_with_facebook: 'Iniciar sesión con Facebook'
+  home: 'Inicio'
+  give_a_gift: 'Dar un Regalo'
+  category: 'Categoría'
+  categories: 'Categorías'
+  profile: 'Perfil'
+  wishers: 'Deseos'
+  wishes: 'Deseos'
+  address: 'Dirección'
+  comments: 'Comentarios'
+  post_comment: 'Comentar'
+  update_comment: 'Comentar'
+  type_in_your_comment: 'Dejar un comentario'
+  gift: 'Regalo'
+  gifts: 'Regalos'
+  new_gift: 'Nuevo Regalo'
+  edit_gift: 'Editar Regalo'
+  on_the_site_since: 'Miembro desde'
+  tags: 'Etiquetas'
+  cancel: 'Cancelar'
+  how_it_works: '¿Como funciona?'
+  how_to_give_a_gift: '¿Como dar un regalo?'
+  how_to_receive_a_gift: '¿Como recibir un regalo?'
+  why_meet: '¿Por que reunirse?'
+  contact: 'Contactar'
+  has_commented_on_the_gift: 'ha comentado en el regalo' # not in use
+  promised_you_the_gift: 'te promete el regalo' # not in use
+  wants_your_gift: 'quiere tu regalo' # not in use
+  here_you_can_discuss: 'Aqui puedes hablar con %{name} para recibir el regalo:' # not in use
+  comment_deleted: 'Comentario ha sido eliminado' #?
+  are_you_sure: '¿Estás seguro?'
+  said: 'hace'
+  ago: ''
+  thanks: 'Apreciaciónes' #?
+  meeting: 'Reunión' #?
+  add_photo: 'Agregar imagen'
+  remove_this_photo: 'Borrar esta imagen'
+  select_category: 'Selecciona una categoría'
+  leave_it_blank: 'Deja los campos en blanco si no quieres cambiar la contraseña'
+  update: 'Actualizar'
+  country: 'País'
+  nobody_wished_this_gift_yet: 'Nadie quiere tu regalo todavia'
+  to: 'a'
+  his: 'Sus'
+  hello: 'Hola'
+  here_arrow: 'aqui'
+  login: 'inicia sesion'
+  login_to_comment: 'Registrate o %{link} para comentar.'
+  wish_the_gift: 'Quiero el regalo'
+  unwish_the_gift: 'No quiero el regalo mas'
+  create_gift: 'Crear Regalo'
+  given: 'Regalado'
+  promised: 'Prometido'
+  language_for_emails: 'Idioma para emails'
+  has_no_comments: "<strong>%{name}</strong> no ha publicado ningun comentarios todavia."
+  has_no_wishes: "<strong>%{name}</strong> no ha quierido ningun regalo todavia."
+  has_no_gifts: "<strong>%{name}</strong> no ha publicado ningun regalos todavia."
+  state: 'Estado / Región'
+  please_select_country: 'Favor seleccione su pais'
+  when_you_change_gift_status: 'Cuando el regalo es regalado, nadie puede pedirlo además de ti'
+  the_owner_has_beeen_notified: 'El dueño del regalo es notificado de tu peticion'
+  the_owner_will_be_notified: 'Cuando tu presionas el boton, el dueño del regalo es notificado'
+  change_status: 'Cambiar el estado'
+  delivery: 'Métodos de entrega'
+  email:
+    subject:
+      welcome: 'Bienvenido a Be More With Less'
+      new_wish: 'Nuevo interesado en tu regalo'
+      new_promise: 'El regalo ha sido cedido para ti'
+      new_comment: 'Nuevo comentario en tu regalo'
+      new_meeting_comment: 'Nuevo comentario en la seccion de la reunion'
+      new_thank_comment: 'Nuevo comentario en la seccion de agradecimiento por un regalo'
+      new_comment_from_gift_owner: 'Nuevo comentario en el regalo que deseas' # not in use
+      gift_given: 'El regalo es cedido a ti!'
+  activerecord:
+    attributes:
+      user:
+        username: 'Nombre de usuario'
+        first_name: 'Nombre'
+        last_name: 'Apellido'
+        email: 'Email'
+        password: 'Contraseña'
+        password_confirmation: 'Confirmar contraseña'
+        country_code: 'País'
+        state_code: 'Estado / Región'
+        city: 'Ciudad'
+        profile: 'Perfil'
+        remember_me: 'Recordarme'
+      gift:
+        title: 'Título'
+        description: 'Descripción'
+        category_id: 'Categoría'
+        tag_list: 'Etiquetas'
+        deliveries: 'Métodos de entrega'
+      address:
+        city: 'Ciudad'
+      photo:
+        image: 'Imagen'
+  time:
+    formats:
+      date: "%d %B, %H:%M"

@@ -1,0 +1,54 @@
+.navbar
+  .navbar-inner
+    .container-fluid
+      %a.btn.btn-navbar{data: {target: '.nav-collapse', toggle: 'collapse'}}
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+      = link_to image_tag('/assets/gift.png') + ' ' + t(:title), gifts_path, class: 'brand'
+      .nav-collapse.collapse
+        %ul.nav
+          %li.active
+            = link_to gifts_path do
+              - content_tag(:i, '', class: 'icon-home') + ' ' + t(:home)
+          %li.divider-vertical
+          - if current_user
+            %li
+              = link_to new_gift_path do
+                - content_tag(:i, '', class: 'icon-gift') + ' ' + t(:give_a_gift)
+            %li.divider-vertical
+          %li
+            = link_to t(:how_it_works), how_it_works_path
+          %li.divider-vertical
+          %li.dropdown
+            %a.dropdown-toggle(href='#' data-toggle='dropdown')
+              = I18n.locale == :es ? 'Español' : 'English'
+              %b.caret
+            %ul.dropdown-menu
+              %li
+                %a{:href => "/?locale=en"}
+                  English
+              %li
+                %a{:href => "/?locale=es"}
+                  Español
+        %ul.nav.pull-right
+          - if current_user
+            %li.avatar.thumbnail
+              = image_tag(current_user.avatar_url(:mini).to_s)
+            %li.dropdown
+              %a.dropdown-toggle(href='#' data-toggle='dropdown')
+                = current_user.username
+                %b.caret
+              %ul.dropdown-menu
+                %li
+                  = link_to edit_user_registration_path(current_user) do
+                    - content_tag(:i, '', class: 'icon-user') + t(:account)
+                %li.divider
+                %li
+                  = link_to destroy_user_session_path, method: :delete do
+                    - content_tag(:i, '', class: 'icon-off') + t(:logout)
+          - else
+            %li= link_to t(:sign_up), new_user_registration_path
+            %li= link_to t(:sign_in), new_user_session_path
+            %li
+              = link_to image_tag('fb.png') , user_omniauth_authorize_path(:facebook)

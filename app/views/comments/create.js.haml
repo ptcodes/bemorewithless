@@ -1,0 +1,12 @@
+var container = $(".new_comment:visible");
+- if @comment.errors.present?
+  container.find("form").prepend("<div class='alert alert-error'>#{escape_javascript @comment.errors.full_messages.join}</div>");
+- else
+  container.find('#comment_content').val('');
+  container.parent().parent().before("#{escape_javascript render(@comment)}");
+  - if @comment.gift_comment?
+    $('.comments-count').html("#{@comment.gift.gift_comments.count} #{t(:comments)}");
+  - elsif @comment.meeting_comment?
+    // $('.meetings-count').html("#{@comment.gift.meeting_comments.count} #{t(:meetings)}");
+  - elsif @comment.thank_comment?
+    // $('.thanks-count').html("#{@comment.gift.thank_comments.count} #{t(:thanks)}");

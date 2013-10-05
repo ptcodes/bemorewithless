@@ -1,0 +1,13 @@
+- meta title: t(:sign_up)
+
+%h2= t(:sign_up)
+= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
+  = f.error_notification
+  .inputs
+    = f.input :email, :required => true, :autofocus => true
+    = f.input :username, :required => true
+    = f.input :password, :required => true
+    = f.input :password_confirmation, :required => true
+  .actions
+    = f.button :submit, t(:sign_up), :class => 'btn-orange'
+= render "links"

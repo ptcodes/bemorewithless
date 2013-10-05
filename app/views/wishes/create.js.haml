@@ -1,0 +1,2 @@
+$("#wish").html("#{escape_javascript render('wish')}");
+$('.wishers-count').html("#{@wish.gift.wishers.count} #{t(:wishers)}");

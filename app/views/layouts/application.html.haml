@@ -1,0 +1,53 @@
+!!! 5
+%html(lang="en")
+  %head
+    = metamagic title: t(:title), description: seo_meta_description
+    %meta(charset="utf-8")
+    %meta(http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1")
+    %meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    %meta(property="og:url" content="http://bemorewithless.com")
+    %meta{property: "og:title", content: t(:title)}
+    %meta{property: "og:description", content: seo_meta_description}
+    %meta(property="og:image" content="http://bemorewithless.herokuapp.com/logo.png")
+    = csrf_meta_tags
+    / Le HTML5 shim, for IE6-8 support of HTML elements
+    /[if lt IE 9]
+      = javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.1/html5shiv.js"
+    = stylesheet_link_tag "application", :media => "all"
+    %link(href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,400,300,600' rel='stylesheet' type='text/css')
+    = auto_discovery_link_tag :atom, '/feed'
+    = auto_discovery_link_tag :rss, '/feed.rss'
+    = favicon_link_tag
+    :javascript
+      window.locale = "#{I18n.locale}"
+
+  %body
+    #fb-root
+    :javascript
+      (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=124258071075046";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+    :javascript
+      !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+
+    = render 'layouts/navbar'
+
+    .container
+      .row
+        .span9
+          = bootstrap_flash
+          = yield
+        .span3
+          = render 'layouts/sidebar'
+
+    = render 'layouts/footer'
+
+    /
+      Javascripts
+      \==================================================
+    / Placed at the end of the document so the pages load faster
+    = javascript_include_tag "application"

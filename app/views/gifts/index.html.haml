@@ -1,0 +1,12 @@
+- if @category
+  - meta title: category_seo_title(@category)
+- else
+  - meta title: t(:title)
+
+.wrap
+  %h1= t(:gifts)
+  - @gifts.each do |gift|
+    = render partial: 'gift', locals: {gift: gift}
+  .row
+    .span8
+      = paginate @gifts

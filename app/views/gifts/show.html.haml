@@ -1,0 +1,88 @@
+- meta title: gift_seo_title(@gift), description: gift_seo_description(@gift)
+
+= div_for(@gift, class: 'wrap') do
+  %h1
+    = @gift.title
+    - if @gift.given?
+      %span.label.label-important= t(:given)
+    - if @gift.promised?
+      %span.label.label-success= t(:promised)
+  .row.description
+    .span6
+      = @gift.description.html_safe
+    .span2.pull-right
+      = render partial: 'users/user', locals: {user: @gift.user}
+  .row
+    .span8
+      %ul.thumbnails
+        - @gift.photos.each do |photo|
+          %li.span3
+            .thumbnail
+              = link_to image_tag(photo.image_url(:medium).to_s), "#photo-#{photo.id}", data: {toggle: 'lightbox'}
+              .lightbox.hide.fade{id: "photo-#{photo.id}", 'aria-hidden' => 'true', role: 'dialog', tabindex: '-1'}
+                .lightbox-header
+                  %button.close{'aria-hidden' => 'true', 'data-dismiss' => 'lightbox', type: 'button'} ×
+                .lightbox-content
+                  = image_tag(photo.image_url(:normal).to_s)
+  .row
+    .span8
+      %p
+        %i.icon-book
+        = "#{t(:category)}:"
+        = link_to @gift.category.try(:name), category_path(@gift.category)
+      - if @gift.full_address.present?
+        %p
+          %i.icon-globe
+          = "#{t(:address)}: #{@gift.full_address}"
+      %p
+        %i.icon-briefcase
+        = "#{t(:delivery)}: #{show_delivery_methods(@gift)}"
+      %p
+        %i.icon-calendar
+        = l @gift.created_at, format: :date
+        |
+        %i.icon-comment
+        %span.comments-count
+          = "#{@gift.gift_comments.count} #{t(:comments)}"
+        |
+        %i.icon-heart
+        %span.wishers-count
+          = "#{@gift.wishers.count} #{t(:wishers)}"
+        |
+        - if @gift.thank_comments.count > 0
+          %i.icon-thumbs-up
+          %span.thanks-count
+            = "#{@gift.thank_comments.count} #{t(:thanks)}"
+          |
+        %i.icon-tags
+        = "#{t(:tags)}:"
+        = show_tags(@gift)
+        - if @gift.user == current_user
+          |
+          %i.icon-cog
+          = link_to edit_gift_path(@gift) do
+            - content_tag(:i, '', class: 'icon-edit')
+          = link_to gift_path(@gift), method: :delete, data: {confirm: t(:are_you_sure)} do
+            - content_tag(:i, '', class: 'icon-trash')
+  .row
+    .span8
+      .tabbable
+        %ul.nav.nav-tabs
+          %li.active
+            = link_to t(:comments), '#comments', data: {toggle: :tab}
+          %li
+            = link_to t(:wishers), '#wishers', data: {toggle: :tab}
+          %li
+            = link_to t(:thanks), '#thanks', data: {toggle: :tab}
+          - if current_user && (@gift.user == current_user || @gift.promisees.map(&:user).include?(current_user))
+            %li
+              = link_to t(:meeting), '#meeting', data: {toggle: :tab}
+        .tab-content
+          #comments.tab-pane.active
+            = render 'comments'
+          #wishers.tab-pane
+            = render 'wishers'
+          #thanks.tab-pane
+            = render 'thanks'
+          #meeting.tab-pane
+            = render 'meeting'

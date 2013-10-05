@@ -1,0 +1,14 @@
+- if @gift.wishers.map(&:user).include?(current_user)
+  = simple_form_for current_user.wishes.where(gift_id: @gift).first, html: {method: :delete}, remote: true do |f|
+    = f.button :submit, t(:unwish_the_gift), class: 'btn-large btn-orange'
+- else
+  = simple_form_for current_user.wishes.build(gift: @gift), remote: true do |f|
+    = f.error_notification
+    = f.input :gift_id, as: :hidden
+    = f.button :submit, t(:wish_the_gift), class: 'btn-large btn-orange'
+
+.note
+  - if @gift.wished_by current_user
+    = t(:the_owner_has_been_notified)
+  - else
+    = t(:the_owner_will_be_notified)

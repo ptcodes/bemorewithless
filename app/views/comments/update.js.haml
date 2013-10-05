@@ -1,0 +1,4 @@
+- if @comment.errors.present?
+  $("##{dom_id(@comment)}").find("form").prepend("#{escape_javascript error_messages_for(@comment)}");
+- else
+  $("##{dom_id(@comment)}").parent().replaceWith("#{escape_javascript render(@comment)}");

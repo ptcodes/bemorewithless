@@ -1,0 +1,4 @@
+- if @gift.given?
+  $('h1 span.label').removeClass('label-success').addClass('label-important').html("#{t(:given)}")
+- if @gift.promised?
+  $('h1 span.label').removeClass('label-important').addClass('label-success').html("#{t(:promised)}")

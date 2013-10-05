@@ -1,0 +1,10 @@
+%p
+  = "Hola #{@user}!"
+%p
+  = link_to @wish.user.username, user_url(@wish.user, locale: @user.language)
+  quiere tu regalo
+  = link_to @wish.gift.title, gift_url(@wish.gift, anchor: 'wishers', locale: @user.language)
+%p
+  Chao!
+%p
+  Regalomía

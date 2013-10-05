@@ -1,0 +1,13 @@
+- meta title: t(:wishes)
+
+.wrap
+  %h1= t(:wishes)
+  - if @wishes.any?
+    - @wishes.each do |wish|
+      = render partial: 'gifts/gift', locals: {gift: wish.gift}
+  - else
+    = t(:has_no_wishes, name: @user.username).html_safe
+
+  .row
+    .span8
+      = paginate @wishes

@@ -1,0 +1,13 @@
+- meta title: t(:title)
+
+.wrap
+  %h1= t(:regalos)
+  - if @gifts.any?
+    - @gifts.each do |gift|
+      = render :partial => 'gifts/gift', :locals => { :gift => gift }
+  - else
+    = t(:has_no_gifts, name: @user.username).html_safe
+
+  .row
+    .span8
+      = paginate @gifts

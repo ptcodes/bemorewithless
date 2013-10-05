@@ -1,0 +1,4 @@
+if ($("#comment_<%= params[:parent_id] %>").children("#new_comment").length == 0) {
+  $("#comment_<%= params[:parent_id] %>").prepend("<%= escape_javascript render("form") %>");
+  $("#comment_<%= params[:parent_id] %>").find("#comment_content")[0].focus();
+}

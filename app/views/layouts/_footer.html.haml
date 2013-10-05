@@ -1,0 +1,19 @@
+#footer
+  .container
+    %hr
+    .row
+      .span8
+        %ul.footer-links
+          %li
+            = link_to t(:how_it_works), how_it_works_path
+          %li
+      .span4
+        %p.pull-right
+          = link_to image_tag('/assets/rss.png'), '/feed'
+    .row
+      .span12
+        %p.pull-left
+          &copy; 2013
+          = t(:title)
+        %ul.footer-links.pull-right
+          %li

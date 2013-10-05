@@ -1,0 +1,22 @@
+= simple_nested_form_for @gift, html: {class: "form-horizontal", multipart: true} do |f|
+  = f.error_notification
+  = f.input :title
+  = f.input :description
+  = f.simple_fields_for :photos do |photos_form|
+    = photos_form.input :image, as: :image_preview, input_html: {preview_version: :mini}
+    = photos_form.link_to_remove t(:remove_this_photo)
+  = f.link_to_add t(:add_photo), :photos
+  = f.input :tag_list
+  = f.input :category_id, collection: Category.order(:name), prompt: t(:select_category)
+  = f.association :deliveries, collection: Delivery.order(:name), as: :check_boxes, required: true
+  = f.simple_fields_for :address do |address_form|
+    .control-group.string.optional
+      %label.string.optional.control-label{for: 'gift_address_attributes_country_code'}= t(:country)
+      .controls
+        = address_form.country_select :country_code, priority: %w(CL), label: t(:country)
+    .control-group.string.optional
+      = render partial: 'addresses/subregion_options', locals: {parent_region: address_form.object.country_code, model: 'gift'}
+      = address_form.input :city
+  .form-actions
+    = f.button :submit, t(:create_gift), class: 'btn-orange'
+    = link_to t(:cancel), gifts_path, class: 'btn'

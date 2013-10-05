@@ -1,0 +1,13 @@
+#wishers
+  - if @gift.wishers.any?
+    - @gift.wishers.each do |wish|
+      = simple_form_for wish, remote: true do |f|
+        %ul.thumbnails
+          %li.wisher{class: wish.promised?? 'promised' : ''}
+            = link_to image_tag(wish.user.avatar_url(:medium).to_s), user_path(wish.user)
+            %p
+              = link_to wish.user, user_path(wish.user)
+              - if current_user && @gift.user == current_user
+                = f.input :promised, label: t(:promised), input_html: {class: 'promise'}
+  - else
+    = t(:nobody_wished_this_gift_yet)
