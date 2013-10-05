@@ -25,9 +25,12 @@ class GiftsController < InheritedResources::Base
     end
 
     respond_to do |format|
-      format.html
-      format.json { render :json => @gifts }
+      format.html 
+      format.json { 
+        render json: @gifts.as_json(include: [:user, :category, :photos], methods: :permalink)
+      }
     end
+    
   end
 
   def give
