@@ -50,7 +50,7 @@ class GiftsController < InheritedResources::Base
     
     respond_to do |format|
       format.html 
-      format.json { render json: @gift.as_json(include: :photo) }
+      format.json { render json: @gift.as_json(include: :photos) }
     end
   end
 
