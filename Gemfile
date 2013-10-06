@@ -30,6 +30,9 @@ gem 'bootstrap-wysihtml5-rails'
 gem 'twitter-bootstrap-rails'
 gem 'less-rails'
 
+gem 'fb_graph', '~> 2.5.0'
+gem 'debugger'
+
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
