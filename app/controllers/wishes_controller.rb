@@ -3,6 +3,22 @@ class WishesController < InheritedResources::Base
   respond_to :js
   before_filter :find_gift, :only => [:create, :destroy, :update, :promise]
 
+  def mine
+    @wishes = current_user.wishes
+    
+    respond_to do |format|
+      format.html 
+      format.json { render json: @wishes }
+    end
+  end
+
+  def create
+    super
+    respond_to |format| do
+      format.json { render :json => { :success => true } }
+    end
+  end
+
   def promise
     @gift.promise!
   end

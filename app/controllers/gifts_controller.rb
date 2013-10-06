@@ -3,6 +3,15 @@ class GiftsController < InheritedResources::Base
   actions :all, :except => [:index, :show]
   respond_to :js, :html
 
+  def mine
+    @gifts = current_user.gifts
+    
+    respond_to do |format|
+      format.html 
+      format.json { render json: @gifts.as_json(include: :photos) }
+    end
+  end
+
   def new
     new! do
       @gift.photos.build
