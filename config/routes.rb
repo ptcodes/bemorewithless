@@ -6,7 +6,7 @@ BeMoreWithLess::Application.routes.draw do
 
   scope "(:locale)", locale: /en|es/ do
     resources :activities, only: :index
-    resources :gifts do
+    resources :gifts, path: :items do
       collection do
         get :feed, defaults: {format: 'atom'}
       end
