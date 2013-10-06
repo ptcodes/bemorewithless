@@ -14,7 +14,7 @@ class WishesController < InheritedResources::Base
 
   def create
     super
-    respond_to |format| do
+    respond_to do |format|
       format.json { render :json => { :success => true } }
       format.js
     end
