@@ -13,10 +13,16 @@ class WishesController < InheritedResources::Base
   end
 
   def create
-    super
+    @wish = current_user.wishes.build(params[:wish])
+
     respond_to do |format|
-      format.json { render :json => { :success => true } }
-      format.js
+      if @wish.save
+        format.json { render :json => { :success => true } }
+        format.js
+      else
+        format.json { render json: @wish.errors, status: :unprocessable_entity }
+        format.js
+      end
     end
   end
 
