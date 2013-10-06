@@ -20,8 +20,7 @@ class Wish < ActiveRecord::Base
   validate :user_id, uniqueness: {scope: :gift_id}
 
   def promise!
-    self.promised = true
-    save!
+    update_attribute(promised: true)
   end
 
 end
