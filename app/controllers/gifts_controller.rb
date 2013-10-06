@@ -57,9 +57,11 @@ class GiftsController < InheritedResources::Base
       @comment = current_user.comments.new(gift: @gift)
     end
     
+    wished_by_current_user = @gift.wished_by(current_user)
+    
     respond_to do |format|
       format.html 
-      format.json { render json: @gift.as_json(include: :photos) }
+      format.json { render json: {gift: @gift.as_json(include: :photos), wished_by_current_user: wished_by_current_user } }
     end
   end
 
@@ -75,6 +77,10 @@ class GiftsController < InheritedResources::Base
   end
 
   protected
+  
+  def wished_by_current_user
+    @gift.wished_by(current_user)
+  end
 
   def begin_of_association_chain
     current_user
