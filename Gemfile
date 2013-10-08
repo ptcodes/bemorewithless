@@ -46,6 +46,7 @@ group :development do
   gem 'rails3-generators'
   gem 'awesome_print'
   gem 'pry-rails'
+  gem 'random_data'
 end
 
 group :test do
@@ -70,4 +71,5 @@ group :test do
   gem 'guard-spork'
   gem 'guard-rspec'
   gem 'guard-annotate'
+  gem 'random_data'
 end
