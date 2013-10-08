@@ -65,7 +65,6 @@ if Rails.env.test? || Rails.env.development?
     ind += 1
     puts "#{ind} / #{count}"
     user = User.new
-    user[:id] = User.count + 1
     user[:uid] = Random.number(100000000000)
     user[:first_name] = Random.firstname
     user[:last_name] = Random.lastname
