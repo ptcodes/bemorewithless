@@ -77,10 +77,10 @@ ActiveRecord::Schema.define(:version => 20131006140200) do
 
   create_table "gifts", :force => true do |t|
     t.string   "title"
-    t.text     "description"
+    t.text     "description", :limit => 255
     t.integer  "user_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
     t.integer  "category_id"
     t.string   "state"
   end
