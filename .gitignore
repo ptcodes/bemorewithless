@@ -6,7 +6,7 @@
 /.rvmrc
 *.DS_Store
 *.sw*
-#/config/database.yml
+/config/database.yml
 /public/uploads
 .rvmrc
 .idea
