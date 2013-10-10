@@ -42,12 +42,23 @@ class V1Controller < ApplicationController
       @gifts = Gift.includes(:user).page(params[:page])
     end
 
-    render json: @gifts.as_json(include: [:user, :category, :photos], methods: :permalink)
+    user = current_user
+    if (user)
+      @gifts.each { |gift| gift.current_user = user }
+    end
+
+    render json: @gifts.as_json(include: [:user, :category, :photos], methods: :can_be_wished_by?)
   end
 
   def gifts_mine
     @gifts = current_user.gifts.page(params[:page])
-    render json: @gifts.as_json(:include => :photos)
+
+    user = current_user
+    if (user)
+      @gifts.each { |gift| gift.current_user = user }
+    end
+
+    render json: @gifts.as_json(:include => :photos, methods: :can_be_wished_by?)
   end
 
   def gifts_i_wish
@@ -58,13 +69,21 @@ class V1Controller < ApplicationController
     @wish_ids.uniq!
 
     @gifts = Gift.where('id IN (?)', @wish_ids)
-    render json: @gifts.as_json(:include => :photos)
+
+    user = current_user
+    if (user)
+      @gifts.each { |gift| gift.current_user = user }
+    end
+
+    render json: @gifts.as_json(:include => :photos, methods: :can_be_wished_by?)
   end
 
   def gift
     @gift = Gift.find(params[:id])
 
-    render json: @gift.as_json(:include => :photos)
+    @gift.current_user = user
+
+    render json: @gift.as_json(:include => :photos, methods: :can_be_wished_by?)
   end
 
 end
