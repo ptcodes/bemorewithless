@@ -14,7 +14,11 @@ BeMoreWithLess::Application.routes.draw do
     get "#{api_version}/gifts/mine", to: "#{api_version_controller}#gifts_mine", defaults: {format: 'json'}
     get "#{api_version}/gifts/iwish", to: "#{api_version_controller}#gifts_i_wish", defaults: {format: 'json'}
 
-    get "#{api_version}/gift/:id", to: "#{api_version_controller}#gift", defaults: {format: 'json'}
+    get "#{api_version}/gifts/:id", to: "#{api_version_controller}#gift", defaults: {format: 'json'}
+
+    get "#{api_version}/gifts/:id/unwish", to: "#{api_version_controller}#unwish_gift", defaults: {format: 'json'}
+    get "#{api_version}/gifts/:id/wish", to: "#{api_version_controller}#wish_gift", defaults: {format: 'json'}
+
   end
 
   devise_for :users, controllers: { registrations: 'registrations', omniauth_callbacks: 'users/omniauth_callbacks' }

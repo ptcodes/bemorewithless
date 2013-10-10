@@ -2,6 +2,37 @@ class V1Controller < ApplicationController
   before_filter :authenticate_user!, :except => [:login_via_facebook, :user_profile, :gifts_all, :gift]
   respond_to :json
 
+  def unwish_gift
+    @user = current_user
+    @gift = Gift.find(params[:id])
+    @wishes = Wish.where(:gift_id => @gift.id, :user_id => @user.id).destroy_all
+
+    @result = {:code => "okay"}
+    render json: @result
+  end
+
+  def wish_gift
+    @user = current_user
+    @gift = Gift.find(params[:id])
+
+    @wishes = Wish.where(:gift_id => @gift.id, :user_id => @user.id)
+
+    if (!@wishes.empty?)
+      render :json => { :success => true, :msg => "Is wished already" }
+      return
+    end
+
+    @wish = Wish.new
+    @wish.user_id = @user.id
+    @wish.gift_id = @gift.id
+
+    if @wish.save
+      render :json => { :success => true }
+    else
+      render :json => { :success => false }
+    end
+  end
+
   def my_profile
     @user = current_user
     render json: @user.as_json(method: :avatar)
@@ -81,7 +112,7 @@ class V1Controller < ApplicationController
   def gift
     @gift = Gift.find(params[:id])
 
-    @gift.current_user = user
+    @gift.current_user = current_user
 
     render json: @gift.as_json(:include => :photos, methods: :can_be_wished_by?)
   end
