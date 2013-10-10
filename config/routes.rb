@@ -13,8 +13,6 @@ BeMoreWithLess::Application.routes.draw do
     get "#{api_version}/gift/:id", to: "#{api_version_controller}#gift", defaults: {format: 'json'}
   end
 
-  get "ios/login"
-
   devise_for :users, controllers: { registrations: 'registrations', omniauth_callbacks: 'users/omniauth_callbacks' }
   devise_scope :user do
     get '/users/auth/:provider' => 'users/omniauth_callbacks#passthru'
