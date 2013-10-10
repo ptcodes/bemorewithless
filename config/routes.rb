@@ -3,9 +3,11 @@ BeMoreWithLess::Application.routes.draw do
   scope "api" do
     api_version = "v1"
     api_version_controller = "v1"
+
     get "#{api_version}/gifts", to: "#{api_version_controller}#gifts_all", defaults: {format: 'json'}
     get "#{api_version}/gifts/mine", to: "#{api_version_controller}#gifts_mine", defaults: {format: 'json'}
     get "#{api_version}/gifts/iwish", to: "#{api_version_controller}#gifts_i_wish", defaults: {format: 'json'}
+
     get "#{api_version}/gift/:id", to: "#{api_version_controller}#gift", defaults: {format: 'json'}
   end
 
