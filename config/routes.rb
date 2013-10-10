@@ -4,7 +4,11 @@ BeMoreWithLess::Application.routes.draw do
     api_version = "v1"
     api_version_controller = "v1"
 
-    get "#{api_version}/loginViaFb", to: "#{api_version_controller}#login_via_facebook", defaults: {format: 'json'}
+    get "#{api_version}/loginviafb", to: "#{api_version_controller}#login_via_facebook", defaults: {format: 'json'}
+
+    get "#{api_version}/users/me", to: "#{api_version_controller}#my_profile", defaults: {format: 'json'}
+
+    get "#{api_version}/users/:id", to: "#{api_version_controller}#user_profile", defaults: {format: 'json'}
 
     get "#{api_version}/gifts", to: "#{api_version_controller}#gifts_all", defaults: {format: 'json'}
     get "#{api_version}/gifts/mine", to: "#{api_version_controller}#gifts_mine", defaults: {format: 'json'}

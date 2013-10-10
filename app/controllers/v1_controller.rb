@@ -1,6 +1,16 @@
 class V1Controller < ApplicationController
-  before_filter :authenticate_user!, :except => [:login_via_facebook, :gifts_all, :gift]
+  before_filter :authenticate_user!, :except => [:login_via_facebook, :user_profile, :gifts_all, :gift]
   respond_to :json
+
+  def my_profile
+    @user = current_user
+    render json: @user.as_json(method: :avatar)
+  end
+
+  def user_profile
+    @user = User.find(params[:id])
+    render json: @user.as_json(method: :avatar)
+  end
 
   def login_via_facebook
     token = params[:token]
@@ -10,8 +20,6 @@ class V1Controller < ApplicationController
     fb_user = FbGraph::User.me(token)
     # debugger
     fb_user = fb_user.fetch
-
-
 
     user = User.where(:email => fb_user.email).first
     user = User.create(:email => fb_user.email, :password => fb_user.identifier, :password_confirmation => fb_user.identifier,
@@ -38,12 +46,12 @@ class V1Controller < ApplicationController
   end
 
   def gifts_mine
-    @gifts = current_user.gifts
+    @gifts = current_user.gifts.page(params[:page])
     render json: @gifts.as_json(:include => :photos)
   end
 
   def gifts_i_wish
-    @wishes = current_user.wishes
+    @wishes = current_user.wishes.page(params[:page])
 
     @wish_ids = []
     @wishes.each { |wish| @wish_ids.push wish[:gift_id]  }
