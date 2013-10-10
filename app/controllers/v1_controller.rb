@@ -1,6 +1,28 @@
 class V1Controller < ApplicationController
-  before_filter :authenticate_user!, :except => [:gifts_all, :gift]
+  before_filter :authenticate_user!, :except => [:login_via_facebook, :gifts_all, :gift]
   respond_to :json
+
+  def login_via_facebook
+    token = params[:token]
+
+    # debugger
+
+    fb_user = FbGraph::User.me(token)
+    # debugger
+    fb_user = fb_user.fetch
+
+
+
+    user = User.where(:email => fb_user.email).first
+    user = User.create(:email => fb_user.email, :password => fb_user.identifier, :password_confirmation => fb_user.identifier,
+                       :first_name => fb_user.first_name, :last_name => fb_user.last_name, :username => "#{fb_user.first_name}-#{fb_user.last_name}") unless user
+
+    user.reset_authentication_token!
+
+    render :json => { :user => user, :auth_token => user.authentication_token, :fb_user => fb_user }
+    # rescue Exception => e
+    #   render :json => { :error => e.message }
+  end
 
   def gifts_all
     if params[:tag]
@@ -13,8 +35,6 @@ class V1Controller < ApplicationController
     end
 
     render json: @gifts.as_json(include: [:user, :category, :photos], methods: :permalink)
-  end
-
   end
 
   def gifts_mine
