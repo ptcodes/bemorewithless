@@ -18,6 +18,7 @@ BeMoreWithLess::Application.routes.draw do
 
     get "#{api_version}/gifts/:id/unwish", to: "#{api_version_controller}#unwish_gift", defaults: {format: 'json'}
     get "#{api_version}/gifts/:id/wish", to: "#{api_version_controller}#wish_gift", defaults: {format: 'json'}
+    get "#{api_version}/gifts/:id/iswishedbyme", to: "#{api_version_controller}#is_gift_wished_by_me", defaults: {format: 'json'}
 
   end
 
