@@ -109,7 +109,7 @@ class V1Controller < ApplicationController
 
       @gifts = Gift.where(query)
     else
-      @gifts = Gift.includes(:user).page(params[:page])
+      @gifts = Gift.includes(include: [:user, :category, :photos]).page(params[:page])
     end
 
     user = current_user
@@ -128,7 +128,7 @@ class V1Controller < ApplicationController
       @gifts.each { |gift| gift.current_user = user }
     end
 
-    render json: @gifts.as_json(:include => :photos, methods: :can_be_wished_by?)
+    render json: @gifts.as_json(include: [:user, :category, :photos], methods: :can_be_wished_by?)
   end
 
   def gifts_i_wish
@@ -145,7 +145,7 @@ class V1Controller < ApplicationController
       @gifts.each { |gift| gift.current_user = user }
     end
 
-    render json: @gifts.as_json(:include => :photos, methods: :can_be_wished_by?)
+    render json: @gifts.as_json(include: [:user, :category, :photos], methods: :can_be_wished_by?)
   end
 
   def gift
@@ -153,7 +153,7 @@ class V1Controller < ApplicationController
 
     @gift.current_user = current_user
 
-    render json: @gift.as_json(:include => :photos, methods: :can_be_wished_by?)
+    render json: @gift.as_json(include: [:user, :category, :photos], methods: :can_be_wished_by?)
   end
 
 end
