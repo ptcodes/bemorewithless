@@ -109,7 +109,7 @@ class V1Controller < ApplicationController
 
       @gifts = Gift.where(query)
     else
-      @gifts = Gift.includes(include: [:user, :category, :photos]).page(params[:page])
+      @gifts = Gift.includes(:user).page(params[:page])
     end
 
     user = current_user
