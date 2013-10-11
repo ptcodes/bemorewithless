@@ -101,6 +101,10 @@ class Gift < ActiveRecord::Base
     wishers.count
   end
 
+  def comments_count
+    gift_comments.count + meeting_comments.count + thank_comments.count
+  end
+
   private
 
   def has_deliveries?
