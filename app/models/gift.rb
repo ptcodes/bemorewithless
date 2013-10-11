@@ -97,6 +97,10 @@ class Gift < ActiveRecord::Base
     self.user == user
   end
 
+  def wishers_count
+    wishers.count
+  end
+
   private
 
   def has_deliveries?
