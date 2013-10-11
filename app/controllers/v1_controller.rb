@@ -84,11 +84,30 @@ class V1Controller < ApplicationController
   end
 
   def gifts_all
+    q = params[:q]
+
     if params[:tag]
       @gifts = Gift.by_tag(params[:tag]).page(params[:page])
     elsif params[:category]
       @category = Category.find(params[:category])
       @gifts = Gift.by_category(@category).page(params[:page])
+    elsif !q.nil?
+      terms = []
+      q.split.each { |term| terms.push "%#{term}%" }
+
+      queries = []
+
+      columns = ["title","description"]
+      terms.each { |term|
+        columns.each { |column|
+          queries.push "#{column} LIKE \'#{term}\'"
+        }
+      }
+
+      query = queries.join " OR "
+      ap query
+
+      @gifts = Gift.where(query)
     else
       @gifts = Gift.includes(:user).page(params[:page])
     end
