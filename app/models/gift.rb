@@ -18,6 +18,7 @@ class Gift < ActiveRecord::Base
 
   attr_accessor :status
   attr_accessible :description, :title, :user_id, :tag_list, :category_id, :photos_attributes, :status, :address_attributes, :delivery_ids
+  attr_accessor :current_user
 
   belongs_to :user
   belongs_to :category, counter_cache: true
@@ -78,6 +79,12 @@ class Gift < ActiveRecord::Base
     !given? && !new_record?
   end
 
+  def can_be_wished_by?(user = nil)
+    us = user ||= current_user
+    !given? && !new_record? && !owner?(current_user) && !wished_by(current_user)
+    # rest of your code
+  end
+
   def promised_to_anyone?
     wishers.where(promised: true).count > 0
   end
@@ -88,6 +95,14 @@ class Gift < ActiveRecord::Base
 
   def owner?(user)
     self.user == user
+  end
+
+  def wishers_count
+    wishers.count
+  end
+
+  def comments_count
+    gift_comments.count + meeting_comments.count + thank_comments.count
   end
 
   private

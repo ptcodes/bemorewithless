@@ -12,7 +12,7 @@ Devise.setup do |config|
   # config.mailer = "Devise::Mailer"
 
   # Automatically apply schema changes in tableless databases
-  config.apply_schema = false
+  # config.apply_schema = false
 
   # ==> ORM configuration
   # Load and configure the ORM. Supports :active_record (default) and
@@ -115,7 +115,7 @@ Devise.setup do |config|
 
   # If true, uses the password salt as remember token. This should be turned
   # to false if you are not using database authenticatable.
-  config.use_salt_as_remember_token = true
+  # config.use_salt_as_remember_token = true
 
   # Options to be passed to the created cookie. For instance, you can set
   # :secure => true in order to force SSL only cookies.
@@ -213,7 +213,14 @@ Devise.setup do |config|
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', :scope => 'user,public_repo'
-  config.omniauth :facebook, ENV['BMWL_FACEBOOK_APP_ID'], ENV['BMWL_FACEBOOK_APP_SECRET']
+
+  if Rails.env.test? || Rails.env.development?
+    OAUTH_CREDENTIALS_PATH = "./config/oauth.yml"
+    OAUTH_CREDENTIALS = YAML.load_file(OAUTH_CREDENTIALS_PATH)[Rails.env]
+    config.omniauth :facebook, OAUTH_CREDENTIALS[:facebook][:app_id], OAUTH_CREDENTIALS[:facebook][:app_secret]
+  else
+    config.omniauth :facebook, ENV['BMWL_FACEBOOK_APP_ID'], ENV['BMWL_FACEBOOK_APP_SECRET']
+  end
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
@@ -223,4 +230,7 @@ Devise.setup do |config|
   #   manager.intercept_401 = false
   #   manager.default_strategies(:scope => :user).unshift :some_external_strategy
   # end
+
+  config.secret_key = 'd62d36c4a598b1d14dd272751dc2eecf34474825c4731cbedb8283c78ebb430b9180eefea503e9939eaa3e5eab51ab3982992492dedd61b2ff88d5e2b2dda80d'
+
 end

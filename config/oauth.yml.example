@@ -1,0 +1,16 @@
+development: &defaults
+  :facebook:
+    :app_id: YOUR_APP_ID
+    :app_secret: YOUR_APP_SECRET
+
+test:
+  <<: *defaults
+
+staging:
+  <<: *defaults
+
+production:
+  <<: *defaults
+  :facebook:
+    :app_id: YOUR_APP_ID
+    :app_secret: YOUR_APP_SECRET

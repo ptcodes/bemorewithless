@@ -9,3 +9,5 @@
 /config/database.yml
 /public/uploads
 .rvmrc
+.idea
+oauth.yml
