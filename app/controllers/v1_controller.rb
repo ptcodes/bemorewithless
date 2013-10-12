@@ -150,10 +150,36 @@ class V1Controller < ApplicationController
 
   def gift
     @gift = Gift.find(params[:id])
-
     @gift.current_user = current_user
 
     render json: @gift.as_json(include: [:user, :category, :photos], methods: [:can_be_wished_by?, :wishers_count, :comments_count])
   end
 
+  def new_comment_for_gift
+    gift = Gift.find(params[:id])
+    content= params[:content]
+
+    comment = Comment.new
+    comment.user = current_user
+    comment.gift = gift
+    comment.content = content
+    comment.type_id = 1
+
+    if comment.save!
+      @result = {:success => true, :msg => "Comment posted"}
+    else
+      @result = {:success => false, :msg => "Comment wasn't posted"}
+    end
+
+    #puts "\n\n=======================\n\n"
+    #ap params
+    #puts "\n\n=======================\n\n"
+
+    render json: @result
+  end
+
+  def all_comments_for_gift
+    gift = Gift.find(params[:id])
+    render json: gift.gift_comments.as_json(include: :user)
+  end
 end
