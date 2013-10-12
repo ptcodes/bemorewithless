@@ -1,5 +1,5 @@
 class V1Controller < ApplicationController
-  before_filter :authenticate_user!, :except => [:login_via_facebook, :user_profile, :gifts_all, :gift]
+  before_filter :authenticate_user!, :except => [:login_via_facebook, :user_profile, :gifts_all, :gift, :all_comments_for_gift]
   respond_to :json
 
   def is_gift_wished_by_me
