@@ -22,8 +22,9 @@ BeMoreWithLess::Application.routes.draw do
     get "#{api_version}/gifts/:id/wish", to: "#{api_version_controller}#wish_gift", defaults: {format: 'json'}
     get "#{api_version}/gifts/:id/iswishedbyme", to: "#{api_version_controller}#is_gift_wished_by_me", defaults: {format: 'json'}
 
-    put "#{api_version}/gifts/:id/comments/", to: "#{api_version_controller}#new_comment_for_gift", defaults: {format: 'json'}
     get "#{api_version}/gifts/:id/comments/", to: "#{api_version_controller}#all_comments_for_gift", defaults: {format: 'json'}
+    put "#{api_version}/gifts/:id/comments/", to: "#{api_version_controller}#new_comment_for_gift", defaults: {format: 'json'}
+    delete "#{api_version}/comments/:id", to: "#{api_version_controller}#delete_comment", defaults: {format: 'json'}
 
   end
 

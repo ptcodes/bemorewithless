@@ -21,6 +21,8 @@ class Comment < ActiveRecord::Base
 
   scope :thanks, includes(:user, :gift).where(type_id: 3).order('created_at DESC').limit(5)
 
+  default_scope order('created_at DESC')
+
   def gift_comment?
     type_id == 1
   end
@@ -49,6 +51,10 @@ class Comment < ActiveRecord::Base
     end
     # delete user who left the comment
     users.uniq.reject{|user| user == self.user}
+  end
+
+  def owner?(user)
+    self.user == user
   end
 
 end

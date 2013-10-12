@@ -182,4 +182,25 @@ class V1Controller < ApplicationController
     gift = Gift.find(params[:id])
     render json: gift.gift_comments.as_json(include: :user)
   end
+
+  def delete_comment
+    comment_id = params[:id]
+    comment = Comment.where("id = ?", comment_id).first
+
+    ap comment
+    if comment.nil?
+      @result = {:success => false, :msg => "There isn't comment :: id == \'#{comment_id}\''"}
+    elsif !comment.owner? current_user
+      @result = {:success => false, :msg => "It's not your comment :: id == \'#{comment_id}\''"}
+    else
+      if comment.destroy
+        @result = {:success => true, :msg => "Comment was deleted :: id == \'#{comment_id}\''"}
+      else
+        @result = {:success => false, :msg => "Comment wasn't deleted :: id == \'#{comment_id}\''"}
+      end
+    end
+
+    ap @result
+    render json: @result
+  end
 end
